@@ -1,0 +1,39 @@
+body {
+  background-image: url("https://media.istockphoto.com/vectors/blue-violet-watercolor-background-vector-vector-id951110068?k=20&m=951110068&s=612x612&w=0&h=uwB7WB2pM_yNa5l1pITKi1HgpzOZKOBD3JSW3LPNPkg=");
+  margin: 100px auto;
+  width: 100%;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 5em;
+  font-family: "Helvetica", "Arial", "Sans-Serif";
+}
+
+p,
+button,
+input {
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: rgb(0, 0, 0);
+  margin-bottom: 1em;
+  background-color: rgb(124, 204, 234);
+}
+
+#gameboard {
+  position: relative;
+  margin: 0 auto 2em auto;
+  width: 500px;
+  height: 500px;
+}
+
+#gameboard div {
+  position: absolute;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #274a5b;
+  border: 1px solid rgb(204, 69, 69);
+  width: 40px;
+  height: 40px;
+}
