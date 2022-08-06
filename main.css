@@ -10,9 +10,7 @@ h1 {
   font-family: "Helvetica", "Arial", "Sans-Serif";
 }
 
-p,
-button,
-input {
+button {
   font-size: 1.5em;
   line-height: 1.4em;
   color: rgb(0, 0, 0);
