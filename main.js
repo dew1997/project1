@@ -10,23 +10,24 @@ import $ from "jquery";
 const game = {
   page: "#start",
   hitcount: 0,
-  battleship: 9,
+  battleship: 9, // 3 ship of 3 box
   numShip: 3,
   torpedos: 30,
-  board: [
-    [0, 0, 1, 1, 1, 0, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ],
+  totalPlayerShip: 17,
 
-  board: [
+  enemyboard: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
+  playerboard: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -42,58 +43,113 @@ const game = {
 //
 const rows = 10;
 const cols = 10;
-const squareSize = 40;
+const squareSize = 30;
 const $gameBoardGrid = $("#gameboard");
+const $myBoard = $("#myboard");
 //
 //// Fixed 10x10 grid for the boardsize
 // Size of the grid
 // /*----- functions -----*/
 
+const placeShip = (event) => {
+  if (event.target !== event.currentTarget) {
+    let row = event.target.id.substring(1, 2);
+    let col = event.target.id.substring(2, 3);
+
+    if (game.playerboard[row][col] === 0) {
+      game.playerboard[row][col] = 1;
+      event.target.style.background = "blue";
+      game.totalPlayerShip--;
+    }
+    if (game.totalPlayerShip === 0) {
+      $myBoard.off("click");
+      alert("You have finished placing your ship! start firing!");
+    }
+  }
+};
+
 const generateShip = () => {
   for (let i = 0; i < game.numShip; i++) {
     let randomRow = Math.floor(Math.random() * 10);
     let randomIndex = Math.floor(Math.random() * 10);
-    if (randomIndex === 0) {
-      game.board[randomRow][randomIndex] = 1;
-      game.board[randomRow][randomIndex + 1] = 1;
-      game.board[randomRow][randomIndex + 2] = 1;
-    } else if (randomIndex === 9) {
-      game.board[randomRow][randomIndex] = 1;
-      game.board[randomRow][randomIndex - 1] = 1;
-      game.board[randomRow][randomIndex - 2] = 1;
-    } else {
-      game.board[randomRow][randomIndex] = 1;
-      game.board[randomRow][randomIndex + 1] = 1;
-      game.board[randomRow][randomIndex - 1] = 1;
+    while (true) {
+      if (randomIndex === 0) {
+        if (
+          game.enemyboard[randomRow][randomIndex] === 0 &&
+          game.enemyboard[randomRow][randomIndex + 1] === 0 &&
+          game.enemyboard[randomRow][randomIndex + 2] === 0
+        ) {
+          game.enemyboard[randomRow][randomIndex] = 1;
+          game.enemyboard[randomRow][randomIndex + 1] = 1;
+          game.enemyboard[randomRow][randomIndex + 2] = 1;
+          break;
+        }
+      } else if (randomIndex === 9) {
+        if (
+          game.enemyboard[randomRow][randomIndex] === 0 &&
+          game.enemyboard[randomRow][randomIndex - 1] === 0 &&
+          game.enemyboard[randomRow][randomIndex - 2] === 0
+        ) {
+          game.enemyboard[randomRow][randomIndex] = 1;
+          game.enemyboard[randomRow][randomIndex - 1] = 1;
+          game.enemyboard[randomRow][randomIndex - 2] = 1;
+          break;
+        }
+      } else {
+        if (
+          game.enemyboard[randomRow][randomIndex] === 0 &&
+          game.enemyboard[randomRow][randomIndex + 1] === 0 &&
+          game.enemyboard[randomRow][randomIndex - 1] === 0
+        ) {
+          game.enemyboard[randomRow][randomIndex] = 1;
+          game.enemyboard[randomRow][randomIndex + 1] = 1;
+          game.enemyboard[randomRow][randomIndex - 1] = 1;
+          break;
+        }
+      }
+      randomRow = Math.floor(Math.random() * 10);
+      randomIndex = Math.floor(Math.random() * 10);
     }
   }
 };
+
+const resetBoard = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      game.enemyboard[i][j] = 0;
+      game.playerboard[i][j] = 0;
+      game.torpedos = 30;
+      game.hitcount = 0;
+    }
+  }
+};
+
 const fireTorpedo = (event) => {
   if (event.target !== event.currentTarget) {
     let row = event.target.id.substring(1, 2);
     let col = event.target.id.substring(2, 3);
-    console.log(row);
-    console.log(col);
 
-    if (game.board[row][col] === 0) {
+    if (game.enemyboard[row][col] === 0) {
       event.target.style.background = "white";
-      game.board[row][col] = 3;
+      game.enemyboard[row][col] = 3;
       game.torpedos--;
       if (game.torpedos === 0) {
         alert("You have used up all your torpedos, you lose!");
         $("#restart").show();
+        $gameBoardGrid.off("click");
       }
-    } else if (game.board[row][col] === 1) {
+    } else if (game.enemyboard[row][col] === 1) {
       event.target.style.background = "red";
-      game.board[row][col] = 2;
+      game.enemyboard[row][col] = 2;
       game.torpedos--;
       game.hitcount++;
       if (game.hitcount === game.battleship) {
         alert("Congratulations, you have destroyed all the battleship!");
         $("#message").show();
         $("#restart").show();
+        $gameBoardGrid.off("click");
       }
-    } else if (game.board[row][col] > 1) {
+    } else if (game.enemyboard[row][col] > 1) {
       alert("Spot already fired!");
     }
   }
@@ -104,8 +160,8 @@ const createBoardSize = (i, j) => {
   for (i = 0; i < cols; i++) {
     for (j = 0; j < rows; j++) {
       const $square = $("<div>")
-        .attr("id", "s" + j + i)
-        .addClass("squares");
+        .addClass("squares")
+        .attr("id", "s" + j + i);
       let topPosition = j * squareSize;
       let leftPosition = i * squareSize;
       $square.css("top", topPosition + "px");
@@ -114,6 +170,22 @@ const createBoardSize = (i, j) => {
     }
   }
 };
+//
+const createMyBoard = (i, j) => {
+  for (i = 0; i < cols; i++) {
+    for (j = 0; j < rows; j++) {
+      const $square1 = $("<div>")
+        .attr("id", "p" + j + i)
+        .addClass("playersquare");
+      let topPosition = j * squareSize;
+      let leftPosition = i * squareSize;
+      $square1.css("top", topPosition + "px");
+      $square1.css("left", leftPosition + "px");
+      $myBoard.append($square1);
+    }
+  }
+};
+
 ///
 const render = () => {
   $(".page").hide();
@@ -121,21 +193,27 @@ const render = () => {
   $("#message").hide();
   $("#restart").hide();
   createBoardSize();
+  createMyBoard();
   generateShip();
 };
 
 const main = () => {
   $(".button").on("click", () => {
     game.page = "#game";
+    createMyBoard();
+    createBoardSize();
     render();
   });
   $("#restart").on("click", () => {
     game.page = "#start";
-    createBoardSize();
+    resetBoard();
     render();
   });
   $gameBoardGrid.on("click", (event) => {
     fireTorpedo(event);
+  });
+  $myBoard.on("click", (event) => {
+    placeShip(event);
   });
   render();
 };
