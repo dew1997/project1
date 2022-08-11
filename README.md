@@ -100,6 +100,6 @@ Patience and never give up.
 
 Some references that I read up on to find out more about the game Battleships
 
-https://jhonny-chamoun.medium.com/battleship-the-game-step1-userinterface-and-game-logic-8abba52746cd
-https://www.theodinproject.com/lessons/node-path-javascript-battleship
-https://apprize.best/javascript/head/9.html
+[Battleship user interface and game logic](https://jhonny-chamoun.medium.com/battleship-the-game-step1-userinterface-and-game-logic-8abba52746cd)
+[The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-battleship)
+[Head First Javascript](https://apprize.best/javascript/head/9.html)
