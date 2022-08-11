@@ -1,6 +1,6 @@
 body {
   background-image: url("https://img.freepik.com/free-vector/watercolor-background_87374-69.jpg?w=2000&t=st=1660187987~exp=1660188587~hmac=d6dbe6c2e2b96a19243ee3f02f029ac61ed45f153edcd2d9a6552e3a6d64f1bd");
-  margin: 100px auto;
+  margin: auto;
   width: 100%;
   max-width: 500px;
 }
@@ -56,4 +56,8 @@ button {
 
 p {
   font-size: 20px;
+}
+
+#restart {
+  text-align: left;
 }
