@@ -48,12 +48,27 @@ Red - Hit
 Blue - Your Ship
 White - Miss
 
+Unsolved problems
+
+- Players are able to fire without placing their battleship.
+- Battleships sizes can vary due to the placement function, does not reflect what the actual game of battleships are supposed to be.
+
+## Further Developments/Improvements
+
+This was created for a project submission. If there was to have a future iterations, I would like to attempt again from scratch
+a better and playable version of Battleship.
+
+- Fix bugs and errors
+- Create different sizes of battleship and make them rotatable.
+- Better game visuals using CSS/HTML.
+- Recreate the game with shorter and more efficient codes.
+
 ## WireFrame
 
-a 10x 10 grid
-battleships
-fire function
-randomised ship
+- a 10x 10 grid
+- battleships
+- fire function
+- randomised ship
 
 ## Key Learnings
 
@@ -73,4 +88,6 @@ a program.
 As my first real attempt into programming, fundamentals have to be greatly improved. Pseudocoding, Logic Thinking and
 basic fundamentals concepts of programming are essential.
 Conditionals, Booleans, Loops, Objects, Functions, Event targetting, Callbacks, Arrays and Classes are key concepts
-that will be used throughout my journey will programming.
+that will be used throughout my journey with programming.
+Although the project did not turned out as good as possible, It taught me that it is just the beginning and I am eager to learn more.
+Patience and never give up.
