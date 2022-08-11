@@ -83,6 +83,10 @@ Writing Clean and Concise Code is always a challenge, code readability for other
 can be further improved in the future. Hoping to improve code writing and logic thinking as they are essential to building
 a program.
 
+Example of inefficient coding.
+
+![](img/Screenshot%202022-08-11%20at%209.06.20%20PM.png)
+
 ## Post Mortem
 
 As my first real attempt into programming, fundamentals have to be greatly improved. Pseudocoding, Logic Thinking and
