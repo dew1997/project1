@@ -23,8 +23,10 @@
 - HTML
 - CSS
 - JavaScript
+- Jquery
 - Git & GitHub
 - Vite
+
 
 ## Description
 
