@@ -95,3 +95,11 @@ Conditionals, Booleans, Loops, Objects, Functions, Event targetting, Callbacks, 
 that will be used throughout my journey with programming.
 Although the project did not turned out as good as possible, It taught me that it is just the beginning and I am eager to learn more.
 Patience and never give up.
+
+## References 
+
+Some references that I read up on to find out more about the game Battleships
+
+https://jhonny-chamoun.medium.com/battleship-the-game-step1-userinterface-and-game-logic-8abba52746cd
+https://www.theodinproject.com/lessons/node-path-javascript-battleship
+https://apprize.best/javascript/head/9.html
