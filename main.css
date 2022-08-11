@@ -1,8 +1,8 @@
 body {
-  background-image: url("https://media.istockphoto.com/vectors/blue-violet-watercolor-background-vector-vector-id951110068?k=20&m=951110068&s=612x612&w=0&h=uwB7WB2pM_yNa5l1pITKi1HgpzOZKOBD3JSW3LPNPkg=");
-  /* margin: 100px auto;
+  background-image: url("https://img.freepik.com/free-vector/watercolor-background_87374-69.jpg?w=2000&t=st=1660187987~exp=1660188587~hmac=d6dbe6c2e2b96a19243ee3f02f029ac61ed45f153edcd2d9a6552e3a6d64f1bd");
+  margin: 100px auto;
   width: 100%;
-  max-width: 500px; */
+  max-width: 500px;
 }
 
 h1 {
@@ -52,4 +52,8 @@ button {
   border: 1px solid rgb(204, 69, 69);
   width: 30px;
   height: 30px;
+}
+
+p {
+  font-size: 20px;
 }

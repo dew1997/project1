@@ -12,8 +12,20 @@ const game = {
   hitcount: 0,
   battleship: 9, // 3 ship of 3 box
   numShip: 3,
-  torpedos: 30,
-  totalPlayerShip: 17,
+  totalPlayerShip: 9,
+  myhitcount: 0,
+  // board: [
+  //   [0, 0, 1, 1, 1, 0, 1, 1, 1, 1],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+  //   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  //   [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  //   [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  //   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  // ],
 
   enemyboard: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -51,6 +63,24 @@ const $myBoard = $("#myboard");
 // Size of the grid
 // /*----- functions -----*/
 
+const enemyFire = () => {
+  let randomRow = Math.floor(Math.random() * 10);
+  let randomIndex = Math.floor(Math.random() * 10);
+  if (game.playerboard[randomRow][randomIndex] === 0) {
+    game.playerboard[randomRow][randomIndex] = 3;
+    $("#p" + randomRow + randomIndex).css("background", "white");
+  } else if (game.playerboard[randomRow][randomIndex] === 1) {
+    game.playerboard[randomRow][randomIndex] = 4;
+    $("#p" + randomRow + randomIndex).css("background", "red");
+    game.myhitcount++;
+    if (game.myhitcount === game.totalPlayerShip) {
+      alert("The enemy destroyed all your battleship, you lose!");
+      $("#restart").show();
+    }
+  } else if (game.playerboard[randomRow][randomIndex] > 2) {
+    enemyFire();
+  }
+};
 const placeShip = (event) => {
   if (event.target !== event.currentTarget) {
     let row = event.target.id.substring(1, 2);
@@ -62,8 +92,8 @@ const placeShip = (event) => {
       game.totalPlayerShip--;
     }
     if (game.totalPlayerShip === 0) {
-      $myBoard.off("click");
       alert("You have finished placing your ship! start firing!");
+      $myBoard.off("click");
     }
   }
 };
@@ -120,11 +150,13 @@ const resetBoard = () => {
       game.playerboard[i][j] = 0;
       game.torpedos = 30;
       game.hitcount = 0;
+      game.totalPlayerShip = 9;
     }
   }
 };
 
 const fireTorpedo = (event) => {
+  $gameBoardGrid.on("click");
   if (event.target !== event.currentTarget) {
     let row = event.target.id.substring(1, 2);
     let col = event.target.id.substring(2, 3);
@@ -132,22 +164,15 @@ const fireTorpedo = (event) => {
     if (game.enemyboard[row][col] === 0) {
       event.target.style.background = "white";
       game.enemyboard[row][col] = 3;
-      game.torpedos--;
-      if (game.torpedos === 0) {
-        alert("You have used up all your torpedos, you lose!");
-        $("#restart").show();
-        $gameBoardGrid.off("click");
-      }
+      enemyFire();
     } else if (game.enemyboard[row][col] === 1) {
       event.target.style.background = "red";
       game.enemyboard[row][col] = 2;
-      game.torpedos--;
       game.hitcount++;
+      enemyFire();
       if (game.hitcount === game.battleship) {
-        alert("Congratulations, you have destroyed all the battleship!");
-        $("#message").show();
         $("#restart").show();
-        $gameBoardGrid.off("click");
+        alert("Congratulations, you have destroyed all the battleship!");
       }
     } else if (game.enemyboard[row][col] > 1) {
       alert("Spot already fired!");
@@ -190,11 +215,7 @@ const createMyBoard = (i, j) => {
 const render = () => {
   $(".page").hide();
   $(game.page).show();
-  $("#message").hide();
   $("#restart").hide();
-  createBoardSize();
-  createMyBoard();
-  generateShip();
 };
 
 const main = () => {
@@ -202,6 +223,7 @@ const main = () => {
     game.page = "#game";
     createMyBoard();
     createBoardSize();
+    generateShip();
     render();
   });
   $("#restart").on("click", () => {
@@ -211,9 +233,11 @@ const main = () => {
   });
   $gameBoardGrid.on("click", (event) => {
     fireTorpedo(event);
+    render();
   });
   $myBoard.on("click", (event) => {
     placeShip(event);
+    render();
   });
   render();
 };

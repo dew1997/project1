@@ -13,18 +13,17 @@ const game = {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ],
 };
+// const placeShip = (event) => {
+//   if (event.target !== event.currentTarget) {
+//     let row = event.target.id.substring(1, 2);
+//     let col = event.target.id.substring(2, 3);
 
-const placeShip = (event) => {
-  if (event.target !== event.currentTarget) {
-    let row = event.target.id.substring(1, 2);
-    let col = event.target.id.substring(2, 3);
-
-    if (game.board[row][col] === 0) {
-      game.board[row][col] = 1;
-      event.target.style.background = "blue";
-    }
-  }
-};
+//     if (game.board[row][col] === 0) {
+//       game.board[row][col] = 1;
+//       event.target.style.background = "blue";
+//     }
+//   }
+// };
 
 // for (let i = 0; i < game.numShip; i++) {
 //   let randomRow = Math.floor(Math.random() * 10);
