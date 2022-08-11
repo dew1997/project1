@@ -59,5 +59,6 @@ p {
 }
 
 #restart {
-  text-align: left;
+  position: fixed;
+  left: 50px;
 }

@@ -14,19 +14,6 @@ const game = {
   numShip: 3,
   totalPlayerShip: 9,
   myhitcount: 0,
-  // board: [
-  //   [0, 0, 1, 1, 1, 0, 1, 1, 1, 1],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-  //   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-  //   [1, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-  //   [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  // ],
-
   enemyboard: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -63,6 +50,19 @@ const $myBoard = $("#myboard");
 // Size of the grid
 // /*----- functions -----*/
 
+// const disableClick = () => {
+//   while (game.totalPlayerShip !== 0) {
+//     $myBoard.on("click", (event) => {
+//       placeShip(event);
+//     });
+//   }
+//   while (game.totalPlayerShip !== game.battleship) {
+//     $gameBoardGrid.on("click", (event) => {
+//       fireTorpedo(event);
+//     });
+//   }
+// };
+
 const enemyFire = () => {
   let randomRow = Math.floor(Math.random() * 10);
   let randomIndex = Math.floor(Math.random() * 10);
@@ -95,6 +95,7 @@ const placeShip = (event) => {
       alert("You have finished placing your ship! start firing!");
     }
   }
+  event.stopPropagation();
 };
 
 const generateShip = () => {
@@ -180,6 +181,7 @@ const fireTorpedo = (event) => {
       alert("Spot already fired!");
     }
   }
+  event.stopPropagation();
 };
 
 // creating the gameboard
