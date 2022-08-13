@@ -69,3 +69,36 @@ const game = {
 // }
 
 // console.log(game.board);
+
+// const placeShip = (event) => {
+//   if (event.target !== event.currentTarget) {
+//     let row = event.target.id.substring(1, 2);
+//     let col = event.target.id.substring(2, 3);
+
+//     if (game.playerboard[row][col] === 0) {
+//       game.playerboard[row][col] = 1;
+//       event.target.style.background = "blue";
+//       game.totalPlayerShip--;
+//     }
+//     if (game.totalPlayerShip === 0) {
+//       alert("You have finished placing your ship! start firing!");
+//     }
+//   }
+//   event.stopPropagation();
+// };
+// const disableClick = () => {
+//   while (game.totalPlayerShip !== 0) {
+//     $myBoard.on("click", (event) => {
+//       placeShip(event);
+//     });
+//   }
+//   while (game.totalPlayerShip !== game.battleship) {
+//     $gameBoardGrid.on("click", (event) => {
+//       fireTorpedo(event);
+//     });
+//   }
+// };
+
+// $myBoard.on("click", (event) => {
+//   placeShip(event);
+// });

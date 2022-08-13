@@ -50,19 +50,6 @@ const $myBoard = $("#myboard");
 // Size of the grid
 // /*----- functions -----*/
 
-// const disableClick = () => {
-//   while (game.totalPlayerShip !== 0) {
-//     $myBoard.on("click", (event) => {
-//       placeShip(event);
-//     });
-//   }
-//   while (game.totalPlayerShip !== game.battleship) {
-//     $gameBoardGrid.on("click", (event) => {
-//       fireTorpedo(event);
-//     });
-//   }
-// };
-
 const enemyFire = () => {
   let randomRow = Math.floor(Math.random() * 10);
   let randomIndex = Math.floor(Math.random() * 10);
@@ -81,21 +68,68 @@ const enemyFire = () => {
     enemyFire();
   }
 };
-const placeShip = (event) => {
-  if (event.target !== event.currentTarget) {
-    let row = event.target.id.substring(1, 2);
-    let col = event.target.id.substring(2, 3);
-
-    if (game.playerboard[row][col] === 0) {
-      game.playerboard[row][col] = 1;
-      event.target.style.background = "blue";
-      game.totalPlayerShip--;
-    }
-    if (game.totalPlayerShip === 0) {
-      alert("You have finished placing your ship! start firing!");
+const resetPlayerBoard = () => {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      game.playerboard[i][j] = 0;
+      $("#p" + j + i).css("background", "#274a5b");
     }
   }
-  event.stopPropagation();
+};
+
+const generatePlayerShip = () => {
+  for (let i = 0; i < game.numShip; i++) {
+    let randomRow = Math.floor(Math.random() * 10);
+    let randomIndex = Math.floor(Math.random() * 10);
+    while (true) {
+      if (randomIndex === 0) {
+        if (
+          game.playerboard[randomRow][randomIndex] === 0 &&
+          game.playerboard[randomRow][randomIndex + 1] === 0 &&
+          game.playerboard[randomRow][randomIndex + 2] === 0
+        ) {
+          game.playerboard[randomRow][randomIndex] = 1;
+          game.playerboard[randomRow][randomIndex + 1] = 1;
+          game.playerboard[randomRow][randomIndex + 2] = 1;
+          $("#p" + randomRow + randomIndex).css("background", "blue");
+          $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
+          $("#p" + randomRow + (randomIndex + 2)).css("background", "blue");
+
+          break;
+        }
+      } else if (randomIndex === 9) {
+        if (
+          game.playerboard[randomRow][randomIndex] === 0 &&
+          game.playerboard[randomRow][randomIndex - 1] === 0 &&
+          game.playerboard[randomRow][randomIndex - 2] === 0
+        ) {
+          game.playerboard[randomRow][randomIndex] = 1;
+          game.playerboard[randomRow][randomIndex - 1] = 1;
+          game.playerboard[randomRow][randomIndex - 2] = 1;
+          $("#p" + randomRow + randomIndex).css("background", "blue");
+          $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
+          $("#p" + randomRow + (randomIndex - 2)).css("background", "blue");
+          break;
+        }
+      } else {
+        if (
+          game.playerboard[randomRow][randomIndex] === 0 &&
+          game.playerboard[randomRow][randomIndex + 1] === 0 &&
+          game.playerboard[randomRow][randomIndex - 1] === 0
+        ) {
+          game.playerboard[randomRow][randomIndex] = 1;
+          game.playerboard[randomRow][randomIndex + 1] = 1;
+          game.playerboard[randomRow][randomIndex - 1] = 1;
+          $("#p" + randomRow + randomIndex).css("background", "blue");
+          $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
+          $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
+          break;
+        }
+      }
+      randomRow = Math.floor(Math.random() * 10);
+      randomIndex = Math.floor(Math.random() * 10);
+    }
+  }
 };
 
 const generateShip = () => {
@@ -229,6 +263,7 @@ const main = () => {
     createBoardSize();
     generateShip();
     render();
+    generatePlayerShip();
   });
   $("#restart").on("click", () => {
     game.page = "#start";
@@ -238,8 +273,9 @@ const main = () => {
   $gameBoardGrid.on("click", (event) => {
     fireTorpedo(event);
   });
-  $myBoard.on("click", (event) => {
-    placeShip(event);
+  $("#randomise").on("click", (event) => {
+    resetPlayerBoard();
+    generatePlayerShip();
   });
   render();
 };
