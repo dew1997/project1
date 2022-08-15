@@ -66,5 +66,11 @@ p {
 #randomise {
   position: fixed;
   left: 50px;
-  top: 600px;
+  top: 650px;
+}
+
+#ships {
+  position: absolute;
+  left: 50px;
+  top: 500px;
 }

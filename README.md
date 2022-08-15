@@ -27,7 +27,6 @@
 - Git & GitHub
 - Vite
 
-
 ## Description
 
 Battleship is traditionally a 2-player game in which the players arrange 5 ships of various lengths on a 10x10 board which are hidden to each other.
@@ -98,7 +97,7 @@ that will be used throughout my journey with programming.
 Although the project did not turned out as good as possible, It taught me that it is just the beginning and I am eager to learn more.
 Patience and never give up.
 
-## References 
+## References
 
 Some references that I read up on to find out more about the game Battleships
 
