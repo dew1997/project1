@@ -224,3 +224,92 @@ const empty = 0;
 const ship = 1;
 const hit = 4;
 const miss = 3;
+
+// const resetPlayerBoard = () => {
+//   for (let i = 0; i < rows; i++) {
+//     for (let j = 0; j < cols; j++) {
+//       game.playerboard[i][j] = 0;
+//       $("#p" + j + i).css("background", "#274a5b");
+//     }
+//   }
+// };
+
+// const generatePlayerShip = () => {
+// for (let i = 0; i < game.numShip; i++) {
+//   let randomRow = Math.floor(Math.random() * 10);
+//   let randomIndex = Math.floor(Math.random() * 10);
+//     while (true) {
+//       if (randomIndex === 0) {
+//         if (
+//           game.playerboard[randomRow][randomIndex] === 0 &&
+//           game.playerboard[randomRow][randomIndex + 1] === 0 &&
+//           game.playerboard[randomRow][randomIndex + 2] === 0
+//         ) {
+//           game.playerboard[randomRow][randomIndex] = 1;
+//           game.playerboard[randomRow][randomIndex + 1] = 1;
+//           game.playerboard[randomRow][randomIndex + 2] = 1;
+//           $("#p" + randomRow + randomIndex).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex + 2)).css("background", "blue");
+
+//           break;
+//         }
+//       } else if (randomIndex === 9) {
+//         if (
+//           game.playerboard[randomRow][randomIndex] === 0 &&
+//           game.playerboard[randomRow][randomIndex - 1] === 0 &&
+//           game.playerboard[randomRow][randomIndex - 2] === 0
+//         ) {
+//           game.playerboard[randomRow][randomIndex] = 1;
+//           game.playerboard[randomRow][randomIndex - 1] = 1;
+//           game.playerboard[randomRow][randomIndex - 2] = 1;
+//           $("#p" + randomRow + randomIndex).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex - 2)).css("background", "blue");
+//           break;
+//         }
+//       } else {
+//         if (
+//           game.playerboard[randomRow][randomIndex] === 0 &&
+//           game.playerboard[randomRow][randomIndex + 1] === 0 &&
+//           game.playerboard[randomRow][randomIndex - 1] === 0
+//         ) {
+//           game.playerboard[randomRow][randomIndex] = 1;
+//           game.playerboard[randomRow][randomIndex + 1] = 1;
+//           game.playerboard[randomRow][randomIndex - 1] = 1;
+//           $("#p" + randomRow + randomIndex).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
+//           $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
+//           break;
+//         }
+//       }
+//       randomRow = Math.floor(Math.random() * 10);
+//       randomIndex = Math.floor(Math.random() * 10);
+//     }
+//   }
+// };
+
+// const emptyBoard = () => {
+//   for (let i = 0; i < rows; i++) {
+//     for (let j = 0; j < cols; j++) {
+//       if (game.playerboard[i][j] === empty) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//   }
+// };
+
+// const checkEmpty = () => {
+//   for (let i = 0; i < rows; i++) {
+//     for (let j = 0; j < cols; j++) {
+//       if (game.playerboard[i][j] === 0) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//   }
+// };
+// console.log(checkEmpty());

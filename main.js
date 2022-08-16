@@ -55,25 +55,35 @@ const miss = 3;
 // Size of the grid
 // /*----- functions -----*/
 
-// const emptyBoard = () => {
-//   for (let i = 0; i < rows; i++) {
-//     for (let j = 0; j < cols; j++) {
-//       if (game.playerboard[i][j] === empty) {
-//         return true;
-//       } else {
-//         return false;
-//       }
-//     }
-//   }
-// };
+const playerCollision = () => {
+  for (let i = 8; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
+      $("#p" + i + j).css("pointer-events", "none");
+    }
+  }
+};
 
+const enablePlayerBoard = () => {
+  $(".playersquare").css("pointer-events", "");
+};
+const disablePlayerBoard = () => {
+  $(".playersquare").css("pointer-events", "none");
+};
+const disableEnemyBoard = () => {
+  $(".squares").css("pointer-events", "none");
+};
+
+const enableEnemyBoard = () => {
+  $(".squares").css("pointer-events", "");
+};
+disableEnemyBoard();
 const enemyFire = () => {
   let randomRow = Math.floor(Math.random() * 10);
   let randomIndex = Math.floor(Math.random() * 10);
   if (game.playerboard[randomRow][randomIndex] === 0) {
     game.playerboard[randomRow][randomIndex] = miss;
     $("#p" + randomRow + randomIndex).css("background", "white");
-  } else if (game.playerboard[randomRow][randomIndex] === 1) {
+  } else if (game.playerboard[randomRow][randomIndex] === 2) {
     game.playerboard[randomRow][randomIndex] = hit;
     $("#p" + randomRow + randomIndex).css("background", "red");
     game.myhitcount++;
@@ -86,90 +96,12 @@ const enemyFire = () => {
   }
 };
 
-// const resetPlayerBoard = () => {
-//   for (let i = 0; i < rows; i++) {
-//     for (let j = 0; j < cols; j++) {
-//       game.playerboard[i][j] = 0;
-//       $("#p" + j + i).css("background", "#274a5b");
-//     }
-//   }
-// };
-
-// const generatePlayerShip = () => {
-// for (let i = 0; i < game.numShip; i++) {
-//   let randomRow = Math.floor(Math.random() * 10);
-//   let randomIndex = Math.floor(Math.random() * 10);
-//     while (true) {
-//       if (randomIndex === 0) {
-//         if (
-//           game.playerboard[randomRow][randomIndex] === 0 &&
-//           game.playerboard[randomRow][randomIndex + 1] === 0 &&
-//           game.playerboard[randomRow][randomIndex + 2] === 0
-//         ) {
-//           game.playerboard[randomRow][randomIndex] = 1;
-//           game.playerboard[randomRow][randomIndex + 1] = 1;
-//           game.playerboard[randomRow][randomIndex + 2] = 1;
-//           $("#p" + randomRow + randomIndex).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex + 2)).css("background", "blue");
-
-//           break;
-//         }
-//       } else if (randomIndex === 9) {
-//         if (
-//           game.playerboard[randomRow][randomIndex] === 0 &&
-//           game.playerboard[randomRow][randomIndex - 1] === 0 &&
-//           game.playerboard[randomRow][randomIndex - 2] === 0
-//         ) {
-//           game.playerboard[randomRow][randomIndex] = 1;
-//           game.playerboard[randomRow][randomIndex - 1] = 1;
-//           game.playerboard[randomRow][randomIndex - 2] = 1;
-//           $("#p" + randomRow + randomIndex).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex - 2)).css("background", "blue");
-//           break;
-//         }
-//       } else {
-//         if (
-//           game.playerboard[randomRow][randomIndex] === 0 &&
-//           game.playerboard[randomRow][randomIndex + 1] === 0 &&
-//           game.playerboard[randomRow][randomIndex - 1] === 0
-//         ) {
-//           game.playerboard[randomRow][randomIndex] = 1;
-//           game.playerboard[randomRow][randomIndex + 1] = 1;
-//           game.playerboard[randomRow][randomIndex - 1] = 1;
-//           $("#p" + randomRow + randomIndex).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex + 1)).css("background", "blue");
-//           $("#p" + randomRow + (randomIndex - 1)).css("background", "blue");
-//           break;
-//         }
-//       }
-//       randomRow = Math.floor(Math.random() * 10);
-//       randomIndex = Math.floor(Math.random() * 10);
-//     }
-//   }
-// };
-
-const checkEmpty = () => {
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      if (game.playerboard[i][j] === 0) {
-      } else {
-      }
-    }
-  }
-};
-
 const placeShip = (event) => {
   if (event.target !== event.currentTarget) {
     let row = event.target.id.substring(1, 2);
     let col = event.target.id.substring(2, 3);
     let row2 = parseInt(row) + 1;
     let row3 = parseInt(row) + 2;
-    console.log(row2);
-    console.log(col);
-    console.log(game.playerboard[row][col]);
-    console.log(game.playerboard[row2][col]);
 
     if (game.playerboard[row][col] === 0) {
       game.playerboard[row][col] = ship;
@@ -180,19 +112,21 @@ const placeShip = (event) => {
       game.playerboard[row2][col] = ship;
       // event.target.style.background = "blue"; //query the specific div with that id s + row + col2
       $("#p" + row2 + col).css("background", "blue");
+      console.log($("#p" + row2 + col));
       game.totalPlayerShip--;
     }
     if (game.playerboard[row3][col] === 0) {
       game.playerboard[row3][col] = ship;
       // event.target.style.background = "blue"; //query the specific div with that id s + row + col2
       $("#p" + row3 + col).css("background", "blue");
+      console.log($("#p" + row3 + col));
       game.totalPlayerShip--;
     }
     if (game.totalPlayerShip === 0) {
       alert("You have finished placing your ship! start firing!");
-      $myBoard.off("click");
+      enableEnemyBoard();
+      disablePlayerBoard();
     }
-    checkEmpty();
   }
   event.stopPropagation();
 };
@@ -327,8 +261,11 @@ const main = () => {
     createMyBoard();
     createBoardSize();
     generateShip();
+    disableEnemyBoard();
+    enablePlayerBoard();
+    playerCollision();
+
     render();
-    // generatePlayerShip();
   });
   $("#restart").on("click", () => {
     game.page = "#start";
@@ -338,10 +275,6 @@ const main = () => {
   $gameBoardGrid.on("click", (event) => {
     fireTorpedo(event);
   });
-  // $("#randomise").on("click", (event) => {
-  //   resetPlayerBoard();
-  //   generatePlayerShip();
-  // });
   $myBoard.on("click", (event) => {
     placeShip(event);
   });
